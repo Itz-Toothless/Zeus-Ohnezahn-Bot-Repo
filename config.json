@@ -1,0 +1,6 @@
+{
+  "prefix": "w&p!",
+  "messages": {
+    "COOLDOWN_MESSAGE": "You are on `<duration>` cooldown!"
+  }
+}

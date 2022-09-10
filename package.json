@@ -1,0 +1,24 @@
+{
+  "name": "d.js-v14-walhalla-and-pika_cord",
+  "version": "1.0.0",
+  "description": "A Bot made for Utility Purposes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Itz_Toothless#8135",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "ascii-table": "^0.0.9",
+    "chalk": "^2.4.1",
+    "discord-api-types": "^0.37.8",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2",
+    "fs": "^0.0.1-security",
+    "got": "^11.8.2",
+    "ms": "^2.1.3",
+    "node-fetch": "^2.6.2",
+    "pretty-ms": "^7.0.1"
+  }
+}
