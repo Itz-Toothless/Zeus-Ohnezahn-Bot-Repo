@@ -4,8 +4,8 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, MessageActionRow, ButtonS
 module.exports = {
     name: "ban",
     aliases: ["ban-id"],
-    usage: "w&p!ban <userid> <reason>",
-	cooldown: 1000,
+    usage: "z&o!ban <userid> <reason>",
+    cooldown: 1000,
     userPerms: ['BanMembers'],
     botPerms: ['BanMembers'],
     run: async (client, message, args) => {
