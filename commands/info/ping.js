@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js')
 module.exports = {
     name: 'ping',
     description: "Gibt die jetzige Latenz des Bots aus",
-    usage: 'w&p!ping',
+    usage: 'z&o!ping',
     cooldown: 3000,
     userPerms: [],
     botPerms: [],
