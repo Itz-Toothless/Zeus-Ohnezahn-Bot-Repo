@@ -4,7 +4,7 @@ const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 module.exports = {
     name: 'userinfo',
     description: 'Gets information about a user.',
-    usage: 'w&p!userinfo <user>',
+    usage: 'z&o!userinfo <user>',
     aliases: ['user', 'u-info', 'uinfo', 'user-info', ' userinfo', ' user', ' u-info', ' uinfo', ' user-info'],
     run: async (client, msg, args) => {
         try {
