@@ -1,0 +1,44 @@
+const { EmbedBuilder } = require("discord.js");
+const process = require("process");
+const { loadavg } = require('os');
+
+module.exports = {
+    name: 'about',
+    description: "Zeigt Informationen über den Bot",
+    usage: 'z&o!about',
+    aliases: ['stats'],
+    cooldown: 3000,
+    userPerms: [],
+    botPerms: [],
+    run: async (client, message) => {
+        try {
+            let uptime = Math.round(parseInt(client.readyTimestamp) / 1000) - 46;
+            let created = Math.round(parseInt(client.user.createdTimestamp) / 1000);
+            let up = `${process.platform.charAt(0).toUpperCase() + process.platform.slice(1)}`
+            let embed = new EmbedBuilder()
+                .setColor("Blue")
+                .setTimestamp()
+                .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+                .setTitle(client.user.username)
+                .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                .setDescription(`
+                > **Server: \`${client.guilds.cache.size}\`**
+                > **Nutzer: \`${Math.ceil(client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toLocaleString("tr-TR"))}\`**
+                > **Kanäle: \`${client.channels.cache.size}\`**
+                > **Nachrichten Kommandos: \`${client.commands.size - 1}\`**
+                > **Slash Kommandos: \`${client.slashCommands.size}\`**
+                > **Onlinezeit: <t:${uptime}:R>**
+                > **Erstellt: <t:${created}:F>**
+                > **Node.js Version: \`${process.version}\`**
+                > **Discord.js: \`v${require('discord.js').version}\`**
+                > **Betriebssystem: \`${up}\`**
+                > **CPU: \`${loadavg()[0]}%\`**
+                > **RAM: \`${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB\`**
+                Lade mich mit [**diesem**](https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot%20applications.commands&permissions=1084516334400) Link auf deinem Server ein
+            `)
+            return message.reply({ embeds: [embed] })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+};
