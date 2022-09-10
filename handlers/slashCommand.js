@@ -3,10 +3,7 @@ const AsciiTable = require('ascii-table');
 const table = new AsciiTable().setHeading('Slash Commands', 'Stats').setBorder('|', '=', "0", "0")
 require('dotenv').config()
 
-const TOKEN = process.env.W_PTOKEN;
-const CLIENT_ID = process.env.CLIENT_ID;
-
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 module.exports = (client) => {
     const slashCommands = [];
@@ -39,7 +36,7 @@ module.exports = (client) => {
     (async () => {
         try {
             await rest.put(
-                process.env.GUILD_ID ? Routes.applicationGuildCommands(CLIENT_ID, process.env.GUILD_ID) : Routes.applicationCommands(CLIENT_ID),
+                process.env.GUILD_ID ? Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID) : Routes.applicationCommands(process.env.CLIENT_ID),
                 { body: slashCommands }
             );
             console.log(chalk.yellow('Slash Commands • Registered'))
