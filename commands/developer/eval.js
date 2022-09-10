@@ -4,7 +4,7 @@ const { inspect } = require('util');
 module.exports = {
     name: 'eval',
     description: '(Dev only) Evaluates JavaScript Code.',
-    usage: 'w&p!eval <code>',
+    usage: 'z&o!!eval <code>',
     aliases: ['ev'],
     userPerms: [],
     botPerms: [],
