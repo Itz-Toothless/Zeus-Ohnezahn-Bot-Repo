@@ -4,7 +4,7 @@ module.exports = {
     name: 'howgay',
     description: 'Gibt einen Prozentsatz aus wie schwul jemand ist (Dient nur zum Spaß ;))',
     aliases: ['hg'],
-    usage: "w&p!howgay (optional: Member)",
+    usage: "z&o!howgay (optional: Member)",
     run: async (client, message, args) => {
         try{
             let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
