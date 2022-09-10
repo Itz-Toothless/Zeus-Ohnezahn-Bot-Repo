@@ -11,9 +11,9 @@ module.exports = {
     botPerms: [],
     run: async (client, interaction) => {
         try {
-            let uptime = Math.round(parseInt(client.readyTimestamp) / 1000) - 46;
-            let created = Math.round(parseInt(client.user.createdTimestamp) / 1000);
-            let up = `${process.platform.charAt(0).toUpperCase() + process.platform.slice(1)}`
+            let laufzeit = Math.round(parseInt(client.readyTimestamp) / 1000) - 46;
+            let erstellt = Math.round(parseInt(client.user.createdTimestamp) / 1000);
+            let operatingSystem = `${process.platform.charAt(0).toUpperCase() + process.platform.slice(1)}`
             let embed = new EmbedBuilder()
             	.setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
                 .setColor("Blue")
@@ -27,11 +27,11 @@ module.exports = {
                 > **Kanäle: \`${client.channels.cache.size}\`**
                 > **Nachrichten Kommandos: \`${client.commands.size - 1}\`**
                 > **Slash Kommandos: \`${client.slashCommands.size}\`**
-                > **Onlinezeit: <t:${uptime}:R>**
-                > **Erstellt: <t:${created}:F>**
+                > **Onlinezeit: <t:${laufzeit}:R>**
+                > **Erstellt: <t:${erstellt}:F>**
                 > **Node.js Version: \`${process.version}\`**
                 > **Discord.js: \`v${require('discord.js').version}\`**
-                > **Betriebssystem: \`${up}\`**
+                > **Betriebssystem: \`${operatingSystem}\`**
                 > **CPU: \`${loadavg()[0]}%\`**
                 > **RAM: \`${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB\`**
                 Lade mich mit [**diesem**](https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot%20applications.commands&permissions=1084516334400) Link auf deinem Server ein
