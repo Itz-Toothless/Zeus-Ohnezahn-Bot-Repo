@@ -5,7 +5,7 @@ module.exports = {
     name: 'exec',
     description: 'Führt Kommandozeilen-Befehle aus (Typ: Linux Debian)',
     aliases: ['exec_command', 'exec_cmd', 'execute_command', 'execute_cmd', 'run'],
-    usage: 'ds!exec <command>',
+    usage: 'z&o!exec <command>',
     run: async (client, msg, args) => {
         try{
             if (msg.author.id !== '705557092802625576') {
