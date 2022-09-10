@@ -4,7 +4,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 module.exports = {
     name: "kick",
     aliases: ["kick-id"],
-    usage: "w&p!kick <@user (optional: User-ID)> (optional: Grund)",
+    usage: "z&o!kick <@user (optional: User-ID)> (optional: Grund)",
     cooldown: 1000,
     userPerms: ['KickMembers'],
     botPerms: ['KickMembers'],
