@@ -93,7 +93,7 @@ module.exports = {
                                 .setCustomId("clear")
                                 .setDisabled(true)
                         );
-                        await Message.edit({ components: [button] });
+                        await Message.edit({ components: [] });
 
                     });
                 });
@@ -185,7 +185,7 @@ module.exports = {
                         			.setCustomId("del")
                                     .setDisabled(true)
                             );
-                            return await Message.edit({ components: [button] });
+                            return await Message.edit({ components: [] });
 
                         });
                     });
