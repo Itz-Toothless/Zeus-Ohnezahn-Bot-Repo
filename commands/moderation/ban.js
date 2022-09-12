@@ -81,20 +81,7 @@ module.exports = {
                         }
                     });
                     col.on("end", async (button) => {
-                        button = new ActionRowBuilder().setComponents(
-                            new ButtonBuilder()
-                                .setStyle(ButtonStyle.Success)
-                                .setLabel("Ban")
-                                .setCustomId("ban")
-                                .setDisabled(true),
-                            new ButtonBuilder()
-                                .setStyle("DANGER")
-                                .setLabel("Zurückziehen")
-                                .setCustomId("clear")
-                                .setDisabled(true)
-                        );
                         await Message.edit({ components: [] });
-
                     });
                 });
                 } catch(e) {
@@ -172,21 +159,8 @@ module.exports = {
                                     break;
                             }
                         });
-                        col.on("end", async (button) => {
-                            button = new ActionRowBuilder().setComponents(
-                                new ButtonBuilder()
-                                    .setStyle(ButtonStyle.Success)
-                                    .setLabel("Bann")
-                                    .setCustomId("rel")
-                                    .setDisabled(true),
-                                new ButtonBuilder()
-                                    .setStyle(ButtonStyle.Danger)
-                       				.setLabel("Zurückziehen")
-                        			.setCustomId("del")
-                                    .setDisabled(true)
-                            );
+                        col.on("end", async () => {
                             return await Message.edit({ components: [] });
-
                         });
                     });
                 }).catch(() => {
