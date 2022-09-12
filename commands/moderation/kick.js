@@ -32,10 +32,7 @@ module.exports = {
                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     return await message.channel.send({ embeds: [embed1], components: [button] }).then(async (Message) => {
                         const filter = (i) => i.user.id === message.author.id;
-                        let col = await Message.createMessageComponentCollector({
-                            filter,
-                            time: 1200000,
-                        });
+                        let col = await Message.createMessageComponentCollector({ filter, time: 1200000 });
 
                         col.on("collect", async (button) => {
                             if (button.user.id !== message.author.id) return;
@@ -65,21 +62,8 @@ module.exports = {
                                     break;
                             }
                         });
-                        col.on("end", async (button) => {
-                            button = new ActionRowBuilder().setComponents(
-                                new ButtonBuilder()
-                                    .setStyle(3)
-                                    .setLabel("Ban")
-                                    .setCustomId("ban")
-                                    .setDisabled(true),
-                                new ButtonBuilder()
-                                    .setStyle(4)
-                                    .setLabel("Zurückziehen")
-                                    .setCustomId("clear")
-                                    .setDisabled(true)
-                            );
+                        col.on("end", async () => {
                             await Message.edit({ components: [] });
-
                         });
                     });
                 } catch (e) {
