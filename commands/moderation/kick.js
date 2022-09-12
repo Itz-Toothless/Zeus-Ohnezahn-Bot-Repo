@@ -1,5 +1,5 @@
 const log = (arg) => console.log(arg);
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 
 module.exports = {
     name: "kick",
@@ -16,18 +16,18 @@ module.exports = {
                 try {
                     let button = new ActionRowBuilder().setComponents(
                         new ButtonBuilder()
-                            .setStyle("SUCCESS")
+                            .setStyle(3)
                             .setLabel("Kick")
                             .setCustomId("rel"),
                         new ButtonBuilder()
-                            .setStyle("DANGER")
+                            .setStyle(4)
                             .setLabel("Zurückziehen")
                             .setCustomId("del")
                     );
                     let embed1 = new EmbedBuilder()
                         .setColor('#0099ff')
                         .setTitle('Kick ausstehend')
-                        .setDescription(`**User:** <@${user.id}>\n**Moderator:** <@${message.author.id}>\n**Grund:** ${reason}`)
+                        .setDescription(`**User:** ${user}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                         .setTimestamp()
                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     return await message.channel.send({ embeds: [embed1], components: [button] }).then(async (Message) => {
@@ -46,53 +46,39 @@ module.exports = {
                                     let embed2 = new EmbedBuilder()
                                         .setColor('#0099ff')
                                         .setTitle('Kick ausgeführt!')
-                                        .setDescription(`**Nutzer erfolgreich gekickt.**\n**User:** <@${user.id}>\n**Moderator:** <@${message.author.id}>\n**Grund:** ${reason}`)
+                                        .setDescription(`**Nutzer erfolgreich gekickt.**\n**User:** ${user}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                                         .setTimestamp()
                                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                     await Message.edit({ embeds: [embed2] });
-                                    button
-                                        .reply({
-                                            content: '**✅ | Kick ausgeführt!**',
-                                        })
-                                        .catch((e) => {
-                                            log(e);
-                                        });
+                                    button.reply({ content: '**✅ | Kick ausgeführt!**', ephemeral: true }).catch((e) => { log(e); });
                                     break;
                                 case "del":
                                     col.stop(true);
                                     let embed3 = new EmbedBuilder()
                                         .setColor('#0099ff')
                                         .setTitle('🆗 Kick abgebrochen')
-                                        .setDescription(`Kick wurde abgebrochen!\n**User:** <@${user.mention}>\n**Moderator:** <@${message.author.id}>\n**Letzter Grund:** ${reason}`)
+                                        .setDescription(`Kick wurde abgebrochen!\n**User:** ${user}\n**Moderator:** ${message.author}\n**Letzter Grund:** ${reason}`)
                                         .setTimestamp()
                                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                     await Message.edit({ embeds: [embed3] });
-                                    button
-                                        .reply({
-                                            content: "**❌ | Kick abgebrochen!**",
-                                            ephemeral: true,
-                                        })
-                                        .catch((e) => {
-                                            log(e);
-                                        }
-                                        );
+                                    button.reply({ content: "**❌ | Kick abgebrochen!**", ephemeral: true }).catch((e) => { log(e); });
                                     break;
                             }
                         });
                         col.on("end", async (button) => {
                             button = new ActionRowBuilder().setComponents(
                                 new ButtonBuilder()
-                                    .setStyle(ButtonStyle.Success)
+                                    .setStyle(3)
                                     .setLabel("Ban")
                                     .setCustomId("ban")
                                     .setDisabled(true),
                                 new ButtonBuilder()
-                                    .setStyle("DANGER")
+                                    .setStyle(4)
                                     .setLabel("Zurückziehen")
                                     .setCustomId("clear")
                                     .setDisabled(true)
                             );
-                            await Message.edit({ components: [button] });
+                            await Message.edit({ components: [] });
 
                         });
                     });
