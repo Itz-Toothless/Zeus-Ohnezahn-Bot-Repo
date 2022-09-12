@@ -50,14 +50,7 @@ module.exports = {
                                     .setTimestamp()
                                     .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                 await Message.edit({ embeds: [embed2] });
-                                button
-                                    .reply({
-                                        content: '**✅ | Bann ausgeführt!**',
-                                    	ephemeral: true
-                                    })
-                                    .catch((e) => {
-                                        log(e);
-                                    });
+                                button.reply({ content: '**✅ | Bann ausgeführt!**', ephemeral: true }) .catch((e) => { log(e) });
                                 break;
                             case "del":
                                 col.stop(true);
@@ -68,19 +61,11 @@ module.exports = {
                                     .setTimestamp()
                                     .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                 await Message.edit({ embeds: [embed3] });
-                                button
-                                    .reply({
-                                        content: "**❌ | Bann abgebrochen!**",
-                                        ephemeral: true,
-                                    })
-                                    .catch((e) => {
-                                        log(e);
-                                    }
-                                    );
+                                button.reply({ content: "**❌ | Bann abgebrochen!**", ephemeral: true }).catch((e) => { log(e) });
                                 break;
                         }
                     });
-                    col.on("end", async (button) => {
+                    col.on("end", async () => {
                         await Message.edit({ components: [] });
                     });
                 });
@@ -109,10 +94,7 @@ module.exports = {
                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     return await message.channel.send({ embeds: [embed1], components: [button] }).then(async (Message) => {
                         const filter = (i) => i.user.id === message.author.id;
-                        let col = await Message.createMessageComponentCollector({
-                            filter,
-                            time: 1200000,
-                        });
+                        let col = await Message.createMessageComponentCollector({ filter, time: 1200000 });
 
                         col.on("collect", async (button) => {
                             if (button.user.id !== message.author.id) return;
@@ -128,14 +110,7 @@ module.exports = {
                                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                     await Message.edit({ embeds: [embed2] });
                                     button
-                                    .reply({
-                                        content: '**✅ | Bann ausgeführt!**',
-                                        ephemeral: true
-                                    })
-                                        .catch((e) => {
-                                            log(e);
-                                            return;
-                                        });
+                                    .reply({ content: '**✅ | Bann ausgeführt!**', ephemeral: true }).catch((e) => { log(e) });
                                     break;
                                 case "del":
                                     col.stop(true);
@@ -146,16 +121,7 @@ module.exports = {
                                         .setTimestamp()
                                         .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                     await Message.edit({ embeds: [embed3] });
-                                    button
-                                        .reply({
-                                        	content: "**❌ | Bann abgebrochen!**",
-                                            ephemeral: true,
-                                        })
-                                        .catch((e) => {
-                                            log(e);
-                                            return;
-                                        }
-                                        );
+                                    button.reply({ content: "**❌ | Bann abgebrochen!**", ephemeral: true }).catch((e) => { log(e) });
                                     break;
                             }
                         });
