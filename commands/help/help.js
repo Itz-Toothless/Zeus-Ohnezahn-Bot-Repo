@@ -49,7 +49,7 @@ module.exports = {
                         .setDescription(`${command.description}`)
                         .addFields(
                             { name: 'Nutzung:', value: `${command.usage}` },
-                            { name: 'Aliasse:', value: `${command.aliases ? command.aliases.join(', ') : 'None'}` })
+                            { name: 'Aliasse:', value: `${command.aliases ? command.aliases.join(', ') : 'Kein Alias gefunden!'}` })
                         .setFooter({ text: 'z&o!help command [commandname] für Kommando-Infos' })
                         .setTimestamp();
                     return message.channel.send({ embeds: [commandEmbed] });
