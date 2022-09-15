@@ -3,7 +3,7 @@ const got = require('got');
 
 module.exports = {
     name: 'meme',
-    description: 'Get a random meme',
+    description: 'Holen Sie sich ein beliebiges Meme',
     usage: 'z&o!meme',
     category: 'memes',
     cooldown: 3000,
