@@ -15,9 +15,9 @@ module.exports = {
                 .setDescription(`🏓 Pong! Latenz beträgt: **${Math.round(client.ws.ping)} ms**`)
             	.setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag })
             	.setTimestamp()
-            await interaction.deferReply({ ephemeral: false });
-            await wait(300);
-            await interaction.followUp({ content: '', embeds: [embed] });
+            await interaction.deferReply({ ephemeral: true });
+            await wait(500);
+            await interaction.followUp({ embeds: [embed], ephemeral: true });
         } catch(err) {
             console.log(err)
         }
