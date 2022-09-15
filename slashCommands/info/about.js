@@ -21,7 +21,7 @@ module.exports = {
                 .setTitle(client.user.username)
                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
                 .setDescription(`
-				> **Entwickler:** <@705557092802625576>
+		> **Entwickler:** <@705557092802625576>
                 > **Server: \`${client.guilds.cache.size}\`**
                 > **Nutzer: \`${Math.ceil(client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toLocaleString("tr-TR"))}\`**
                 > **Kanäle: \`${client.channels.cache.size}\`**
