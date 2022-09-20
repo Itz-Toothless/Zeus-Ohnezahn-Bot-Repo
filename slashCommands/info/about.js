@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 const process = require("process");
 const { loadavg } = require('os');
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     name: 'about',
@@ -36,7 +37,9 @@ module.exports = {
                 > **RAM: \`${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB\`**
                 Lade mich mit [**diesem**](https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot%20applications.commands&permissions=1084516334400) Link auf deinem Server ein
             `)
-            return interaction.reply({ embeds: [embed] })
+	    await interaction.deferReply({ ephemeral: true, fetchReply: true });
+            await wait(500);
+            await interaction.followUp({ embeds: [embed], ephemeral: true });
         } catch (e) {
             console.log(e)
         }
