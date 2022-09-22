@@ -2,15 +2,12 @@ const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js'
 const { readdirSync } = require('fs');
 const client = new Client({
     intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent
     ],
     partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction]
 });
+
+client.on("debug", console.log).on("warn", console.log)
 
 const config = require('./config.json');
 require('dotenv').config()
@@ -28,4 +25,4 @@ readdirSync('./handlers').forEach((handler) => {
 });
 
 
-client.login(process.env.W_PTOKEN)
+client.login(process.env.Z_OTOKEN);
