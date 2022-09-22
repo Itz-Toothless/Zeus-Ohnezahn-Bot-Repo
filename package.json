@@ -4,7 +4,8 @@
   "description": "A Bot made for Utility Purposes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon start"
   },
   "author": "Itz_Toothless#8135",
   "license": "ISC",
@@ -17,8 +18,12 @@
     "dotenv": "^16.0.2",
     "fs": "^0.0.1-security",
     "got": "^11.8.2",
+    "mongoose": "^6.6.1",
     "ms": "^2.1.3",
     "node-fetch": "^2.6.2",
     "pretty-ms": "^7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
