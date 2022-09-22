@@ -8,11 +8,11 @@ client.on('guildBanAdd', async (ban) => {
     });
 
     let channel = client.channels.cache.get(data.ChannelID);
-
+    let b = await ban.fetch();
     let BanEmbed = new EmbedBuilder()
         .setColor('#FF0000')
         .setTitle('Nutzer gebannt!')
-        .setDescription(`${ban.user.tag} wurde aus dem Server verbannt!\nGrund: ${ban.reason ? ban.reason : 'Es wurde kein Grund gefunden!'}`)
+        .setDescription(`${ban.user.tag} wurde aus dem Server verbannt!\nGrund: ${b.reason ? b.reason : 'Es wurde kein Grund gefunden!'}`)
         .setTimestamp();
     return channel.send({ embeds: [BanEmbed] })
 });
