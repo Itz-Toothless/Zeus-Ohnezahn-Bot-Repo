@@ -1,9 +1,11 @@
-const { ApplicationCommandType, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js')
+const { ApplicationCommandType, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const log = (arg) => console.log(arg);
 module.exports = {
     name: 'ban',
     description: 'Bannt jemanden vom Server',
     type: ApplicationCommandType.ChatInput,
+    userPerms: ['BanMembers'],
+    botPerms: ['BanMembers'],
     options: [
         {
             name: 'user',
@@ -99,7 +101,7 @@ module.exports = {
                             let embed1 = new EmbedBuilder()
                                 .setColor(0x0099FF)
                                 .setTitle('Bann ausstehend')
-                                .setDescription(`**User:** <@${user.id}>\n**Moderator:** <@${interaction.user.id}>\n**Grund:** ${reason}`)
+                                .setDescription(`**User:** ${user}\n**Moderator:** ${interaction.user}\n**Grund:** ${reason}`)
                                 .setTimestamp()
                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
                             return await interaction.reply({ embeds: [embed1], allowedMentions: { repliedUser: false }, components: [button], ephemeral: true }).then(async () => {
@@ -111,24 +113,24 @@ module.exports = {
                                     switch (button.customId) {
                                         case "rel":
                                             collector.stop(true);
-                                            await interaction.guild.members.ban(user.id, { reason: reason });
+                                            await interaction.guild.members.ban(user.id, { reason: `Austeller: ${interaction.user} - ${reason}` });
                                             let embed2 = new EmbedBuilder()
                                                 .setColor(0x00ff00)
                                                 .setTitle('🔨 Bann ausgeführt!')
-                                                .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${user.user.tag}\n**Moderator:** ${interaction.user.tag}\n**Grund:** ${reason}`)
+                                                .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${user.user}\n**Moderator:** ${interaction.user}\n**Grund:** ${reason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-                                            await button.update({ embeds: [embed2], components: [] });
+                                            await button.update({ embeds: [embed2], components: [], fetchReply: true });
                                             break;
                                         case "del":
                                             collector.stop(true);
                                             let embed3 = new EmbedBuilder()
                                                 .setColor(0xff0000)
                                                 .setTitle('🆗 Abgebrochen')
-                                                .setDescription(`Bann wurde abgebrochen!\n**User:** ${user.user.tag}\n**Moderator:** ${interaction.user.tag}\n**Grund:** ${reason}`)
+                                                .setDescription(`Bann wurde abgebrochen!\n**User:** ${user.user}\n**Moderator:** ${interaction.user}\n**Grund:** ${reason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-                                            await button.update({ embeds: [embed3], components: [] });
+                                            await button.update({ embeds: [embed3], components: [], fetchReply: true });
                                             break;
                                     }
                                 });
@@ -136,6 +138,16 @@ module.exports = {
                         } catch (e) {
                             log(e);
                         }
+                    } else {
+                        let errorEmbedForNoID = new EmbedBuilder()
+                            .setColor('Red')
+                            .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
+                            .setTitle('Fehler aufgetreten!')
+                            .setDescription('Sie dürfen nur einen User angeben!')
+                            .addFields({ name: 'Syntax:', value: '`/ban user User <optional: Grund>`' },
+                                { name: 'Beispiel:', value: `/ban user ${message.author} Spamming **(Dies sind Sie selbst)**` })
+                            .setTimestamp()
+                        return await interaction.reply({ embeds: [errorEmbedForNoID], ephemeral: true, allowedMentions: { repliedUser: false } });
                     }
                     break;
                 case 'id':
@@ -180,36 +192,34 @@ module.exports = {
                             let embed1 = new EmbedBuilder()
                                 .setColor(0x0099FF)
                                 .setTitle('Bann ausstehend')
-                                .setDescription(`**User:** <@${fetchedUser.id}>\n**Moderator:** <@${interaction.user.id}>\n**Grund:** ${banReason}`)
+                                .setDescription(`**User:** ${fetchedUser}\n**Moderator:** ${interaction.user}\n**Grund:** ${banReason}`)
                                 .setTimestamp()
                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
                             return await interaction.reply({ embeds: [embed1], allowedMentions: { repliedUser: false }, components: [button], ephemeral: true }).then(async () => {
                                 const filter = i => i.user.id === interaction.user.id;
-
                                 const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
-
                                 collector.on("collect", async button => {
                                     switch (button.customId) {
                                         case "rel":
                                             collector.stop(true);
-                                            await interaction.guild.members.ban(fetchedUser.id, { reason: banReason });
+                                            await interaction.guild.members.ban(fetchedUser.id, { reason: `Austeller: ${interaction.user} - ${banReason}` });
                                             let embed2 = new EmbedBuilder()
                                                 .setColor(0x00ff00)
                                                 .setTitle('🔨 Bann ausgeführt!')
-                                                .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${fetchedUser.tag}\n**Moderator:** ${interaction.user.tag}\n**Grund:** ${banReason}`)
+                                                .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${fetchedUser}\n**Moderator:** ${interaction.user}\n**Grund:** ${banReason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-                                            await button.update({ embeds: [embed2], components: [] });
+                                            await button.update({ embeds: [embed2], components: [], fetchReply: true });
                                             break;
                                         case "del":
                                             collector.stop(true);
                                             let embed3 = new EmbedBuilder()
                                                 .setColor(0xff0000)
                                                 .setTitle('🆗 Abgebrochen')
-                                                .setDescription(`Bann wurde abgebrochen!\n**User:** ${fetchedUser.tag}\n**Moderator:** ${interaction.user.tag}\n**Grund:** ${banReason}`)
+                                                .setDescription(`Bann wurde abgebrochen!\n**User:** ${fetchedUser}\n**Moderator:** ${interaction.user}\n**Grund:** ${banReason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
-                                            await button.update({ embeds: [embed3], components: [] });
+                                            await button.update({ embeds: [embed3], components: [], fetchReply: true });
                                             break;
                                     }
                                 });
@@ -217,6 +227,16 @@ module.exports = {
                         } catch (e) {
                             log(e);
                         }
+                    }).catch(async () => {
+                        let errorEmbedForNoID = new EmbedBuilder()
+                            .setColor('Red')
+                            .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
+                            .setTitle('Fehler aufgetreten!')
+                            .setDescription('Sie dürfen nur eine User-ID angeben!')
+                            .addFields({ name: 'Syntax:', value: '`/ban id User-ID <optional: Grund>`' },
+                                { name: 'Beispiel:', value: `/ban id ${interaction.user.id} Spamming **(Diese ID ist Ihre eigene)**` })
+                            .setTimestamp()
+                        return await interaction.reply({ embeds: [errorEmbedForNoID], ephemeral: true, fetchReply: true, allowedMentions: { repliedUser: false } });
                     });
             }
         } catch (err) {
