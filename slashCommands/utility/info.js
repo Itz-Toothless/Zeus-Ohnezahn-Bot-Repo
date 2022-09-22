@@ -37,7 +37,6 @@ module.exports = {
                 type: 8,
                 required: true
             }]
-
         },
         {
             name: 'server',
