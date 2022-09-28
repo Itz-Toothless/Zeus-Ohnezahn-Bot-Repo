@@ -1,35 +1,34 @@
 const { ActivityType } = require('discord.js');
 const client = require('..');
+
+const mongoose = require('mongoose');
+require('dotenv').config();
+
 const chalk = require('chalk');
-
+const activities = [
+    { name: `Discord.js v14.5.0`, type: ActivityType.Competing }
+];
+const status = [
+    'online',
+    'dnd',
+    'idle'
+];
+setInterval(async () => {
+    let sta = status[Math.floor(Math.random() * status.length)];
+    client.user.setStatus(sta);
+}, 60e3);
 client.on("ready", () => {
-    try {
-        const activities = [
-            { name: `${client.guilds.cache.size} Server`, type: ActivityType.Listening },
-            { name: `${client.channels.cache.size} Kanäle`, type: ActivityType.Playing },
-            { name: `${client.users.cache.size - 1} Nutzer`, type: ActivityType.Watching },
-            { name: `Discord.js v14`, type: ActivityType.Competing }
-        ];
-        const status = [
-            'online',
-            'dnd',
-            'idle'
-        ];
-        let i = 0;
-        setInterval(() => {
-            if (i >= activities.length || !i) i = 0
-            client.user.setActivity(activities[i])
-            i++;
-        }, 300000);
 
-        let s = 0;
-        setInterval(() => {
-            if (s >= activities.length || !s) s = 0
-            client.user.setStatus(status[s])
-            s++;
-        }, 300000);
-        console.log(chalk.green(`Logged in as ${client.user.tag}!`))
-    } catch (err) {
-        console.log(err)
-    }
+    console.log(chalk.green(`Eingeloggt als ${client.user.tag}!`))
+
+    if (!process.env.DBURL) return;
+
+    mongoose.connect(process.env.DBURL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }).then(() => {
+        console.log('Client is now connected to the Database')
+    }).catch((err) => {
+        console.log(err);
+    })
 });
