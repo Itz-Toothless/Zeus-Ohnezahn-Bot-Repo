@@ -22,15 +22,17 @@ client.on('interactionCreate', async interaction => {
             if (slashCommand.userPerms || slashCommand.botPerms) {
                 if (!interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.userPerms || []))) {
                     const userPerms = new EmbedBuilder()
+                        .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
                         .setDescription(`🚫 ${interaction.user}, Sie haben nicht die \`${slashCommand.userPerms}\` Berechtigung um dieses Kommando auszuführen!`)
                         .setColor('Red')
-                    return interaction.reply({ embeds: [userPerms] })
+                    return interaction.reply({ embeds: [userPerms], fetchReply: true, ephemeral: true })
                 }
                 if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(slashCommand.botPerms || []))) {
                     const botPerms = new EmbedBuilder()
+                        .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
                         .setDescription(`🚫 ${interaction.user}, Ich habe nicht die \`${slashCommand.botPerms}\` Berechtigung um dieses Kommando auszuführen!`)
                         .setColor('Red')
-                    return interaction.reply({ embeds: [botPerms] })
+                    return interaction.reply({ embeds: [botPerms], fetchReply: true, ephemeral: true })
                 }
             }
             try {
@@ -41,21 +43,23 @@ client.on('interactionCreate', async interaction => {
                 }, slashCommand.cooldown)
             } catch (err) {
                 console.log(err)
-                return interaction.reply({ content: 'Ein Fehler ist aufgetreten', ephemeral: true });
+                return interaction.reply({ content: 'Ein Fehler ist aufgetreten', fetchReply: true, ephemeral: true });
             }
         } else {
             if (slashCommand.userPerms || slashCommand.botPerms) {
                 if (!interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.userPerms || []))) {
                     const userPerms = new EmbedBuilder()
+                        .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
                         .setDescription(`🚫 ${interaction.user}, Sie haben nicht die \`${slashCommand.userPerms}\` Berechtigung um dieses Kommando auszuführen!`)
                         .setColor('Red')
-                    return interaction.reply({ embeds: [userPerms] })
+                    return interaction.reply({ embeds: [userPerms], fetchReply: true, ephemeral: true })
                 }
                 if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(slashCommand.botPerms || []))) {
                     const botPerms = new EmbedBuilder()
+                        .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true })}` })
                         .setDescription(`🚫 ${interaction.user}, Ich habe nicht die \`${slashCommand.botPerms}\` Berechtigung um dieses Kommando auszuführen!`)
                         .setColor('Red')
-                    return interaction.reply({ embeds: [botPerms] })
+                    return interaction.reply({ embeds: [botPerms], fetchReply: true, ephemeral: true })
                 }
 
             }
@@ -63,7 +67,7 @@ client.on('interactionCreate', async interaction => {
                 await slashCommand.run(client, interaction);
             } catch (err) {
                 console.log(err)
-                return interaction.reply({ content: 'Ein Fehler ist aufgetreten', ephemeral: true });
+                return interaction.reply({ content: 'Ein Fehler ist aufgetreten', fetchReply: true, ephemeral: true });
             }
         }
     } catch (error) {
