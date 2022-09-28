@@ -14,7 +14,9 @@ const status = [
     'idle'
 ];
 setInterval(async () => {
+    let act = activities[Math.floor(Math.random() * activities.length)];
     let sta = status[Math.floor(Math.random() * status.length)];
+    client.user.setActivity(act);
     client.user.setStatus(sta);
 }, 60e3);
 client.on("ready", () => {
