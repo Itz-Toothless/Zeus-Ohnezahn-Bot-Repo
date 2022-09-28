@@ -13,15 +13,6 @@ module.exports = {
         if (!reason) reason = 'Kein Grund angegeben'
         await client.users.fetch(id).then(async (user) => {
             try {
-                if (user.id === message.author.id) {
-                let userEqualsAuthorerrorEmbed = new EmbedBuilder()
-                	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
-                	.setColor(0xFF0000)
-                	.setTitle('Fehler!')
-                	.setDescription('Es macht wenig Sinn zu versuchen, sich selbst zu entbannen wenn man doch offensichtlicherweise nicht gebannt ist oder? 🤔')
-                	.setTimestamp()
-                	return await message.reply({ embeds: [userEqualsAuthorerrorEmbed], allowedMentions: { repliedUser: false }})
-            	}
                 let button = new ActionRowBuilder().setComponents(
                     new ButtonBuilder()
                         .setStyle(ButtonStyle.Success)
@@ -39,7 +30,7 @@ module.exports = {
                         .setColor('Random')
                         .setTitle('Keine Bans!')
                         .setDescription('Auf diesem Server ist keiner gebannt!')
-                        .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                        .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: client.users.cache.get('705557092802625576').displayAvatarURL({ dynamic: true }) })
                         .setTimestamp()
                     return await message.reply({ embeds: [banSizeError], allowedMentions: { repliedUser: false } })
                 }
@@ -50,7 +41,7 @@ module.exports = {
                         .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
                         .setTitle('Entbannung nicht ausgeführt!')
                         .setDescription('Der Nutzer ist nicht gebannt!')
-                        .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                        .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: client.users.cache.get('705557092802625576').displayAvatarURL({ dynamic: true }) })
                         .setTimestamp();
                     return await message.reply({ embeds: [userErrorEmbed], allowedMentions: { repliedUser: false } })
                 }
@@ -59,7 +50,7 @@ module.exports = {
                     .setTitle('Entbannung ausstehend')
                     .setDescription(`**User:** <@${user.id}>\n**Moderator:** <@${message.author.id}>\n**Grund:** ${reason}`)
                     .setTimestamp()
-                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: client.users.cache.get('705557092802625576').displayAvatarURL({ dynamic: true }) })
                 return await message.reply({ embeds: [embed1], allowedMentions: { repliedUser: false }, components: [button] }).then(async (Message) => {
                     const filter = (i) => i.user.id === message.author.id;
                     let col = await Message.createMessageComponentCollector({ filter, time: 1200000 });
@@ -74,7 +65,7 @@ module.exports = {
                                     .setTitle('🔨 Entbannung ausgeführt!')
                                     .setDescription(`**Nutzer erfolgreich entbannt.**\n**User:** ${user}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                                     .setTimestamp()
-                                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: client.users.cache.get('705557092802625576').displayAvatarURL({ dynamic: true }) })
                                 await Message.edit({ embeds: [embed2] });
                                 button.reply({ content: '**✅ | Entbannung von ' + user + ' ausgeführt!**', ephemeral: true })
                                     .catch((e) => { log(e) });
@@ -86,7 +77,7 @@ module.exports = {
                                     .setTitle('🆗 Abgebrochen')
                                     .setDescription(`Entbannung wurde abgebrochen!\n**User:** ${user}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                                     .setTimestamp()
-                                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: client.users.cache.get('705557092802625576').displayAvatarURL({ dynamic: true }) })
                                 await Message.edit({ embeds: [embed3] });
                                 button.reply({ content: "**❌ | Entbannung abgebrochen!**", ephemeral: true })
                                     .catch((e) => { log(e) });
