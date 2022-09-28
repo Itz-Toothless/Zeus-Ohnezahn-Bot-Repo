@@ -8,7 +8,7 @@ const cooldown = new Collection();
 client.on('messageCreate', async message => {
     try {
         if (message.author.bot || message.channel.type === "dm") return;
-        let prefixes = ["w&p!", "w&P!", "W&p!", "<@1017497741871554591>", "<@!1017497741871554591>"]
+        let prefixes = ["z&o!", "z&O!", "Z&o!", "<@1017497741871554591>", "<@!1017497741871554591>"]
         let prefixChoose = ""
         prefixes.forEach((prefix) => {
             if (message.content.startsWith(prefix)) {
@@ -30,6 +30,7 @@ client.on('messageCreate', async message => {
                 if (cmd.userPerms || cmd.botPerms) {
                     if (!message.member.permissions.has(PermissionsBitField.resolve(cmd.userPerms || []))) {
                         const userPerms = new EmbedBuilder()
+                            .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
                             .setDescription(`🚫 ${message.author}, Sie haben nicht die \`${cmd.userPerms}\` Berechtigung um diese Aktion auszuführen!`)
                             .setColor('Red')
                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag })
@@ -37,6 +38,7 @@ client.on('messageCreate', async message => {
                     }
                     if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(cmd.botPerms || []))) {
                         const botPerms = new EmbedBuilder()
+                            .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
                             .setDescription(`🚫 ${message.author}, Ich habe nicht die \`${cmd.botPerms}\` Berechtigung um diese Aktion auszuführen!`)
                             .setColor('Red')
                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag })
@@ -59,6 +61,7 @@ client.on('messageCreate', async message => {
                 if (cmd.userPerms || cmd.botPerms) {
                     if (!message.member.permissions.has(PermissionsBitField.resolve(cmd.userPerms || []))) {
                         const userPerms = new EmbedBuilder()
+                            .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
                             .setDescription(`🚫 ${message.author}, Sie haben nicht die \`${cmd.userPerms}\` Berechtigung um diese Aktion auszuführen!`)
                             .setColor('Red')
                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag })
@@ -66,6 +69,7 @@ client.on('messageCreate', async message => {
                     }
                     if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(cmd.botPerms || []))) {
                         const botPerms = new EmbedBuilder()
+                            .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
                             .setDescription(`🚫 ${message.author}, Ich habe nicht die \`${cmd.botPerms}\` Berechtigung um diese Aktion auszuführen!`)
                             .setColor('Red')
                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag })
