@@ -50,21 +50,6 @@ module.exports = {
                     const user = interaction.options.getMember('user');
                     const reason = interaction.options.getString('grund') || 'Kein Grund angegeben';
                     if (user) {
-                        if (user.id === '705557092802625576') {
-                            let errorEmbed1 = new EmbedBuilder()
-                                .setColor(0xFF0000)
-                                .setTitle('Bann nicht ausgeführt')
-                                .setDescription('Der Bot-Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
-                                .setTimestamp()
-                            return await interaction.channel.send({ embeds: [errorEmbed1] });
-                        } else if (user.id === '684318650379010079') {
-                            let errorEmbed2 = new EmbedBuilder()
-                                .setColor(0xFF0000)
-                                .setTitle('Bann nicht ausgeführt')
-                                .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
-                                .setTimestamp()
-                            return await interaction.channel.send({ embeds: [errorEmbed2] });
-                        }
                         if (interaction.member.roles.highest.comparePositionTo(user.roles.highest.id) <= 0) {
                             await interaction.reply({ content: "Du kannst niemanden bannen, der eine höhere Rolle hat!", allowedMentions: { repliedUser: false } })
                             return
