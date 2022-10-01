@@ -28,21 +28,6 @@ module.exports = {
             let owner = await message.guild.fetchOwner()
             console.log(owner.user.id)
             if (user) {
-                if (user.id === '705557092802625576') {
-                    let developerErrorEmbed = new EmbedBuilder()
-                        .setColor(0xFF0000)
-                        .setTitle('Bann nicht ausgeführt')
-                        .setDescription('Der Bot Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
-                        .setTimestamp()
-                    return await message.channel.send({ embeds: [developerErrorEmbed] });
-                } else if (user.id === '684318650379010079') {
-                    let clientErrorEmbed = new EmbedBuilder()
-                        .setColor(0xFF0000)
-                        .setTitle('Bann nicht ausgeführt')
-                        .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
-                        .setTimestamp()
-                    return await message.channel.send({ embeds: [clientErrorEmbed] });
-                }
                 if (message.author.id === owner) return;
                 if (user.id === message.author.id) {
                 let userEqualsAuthorerrorEmbed = new EmbedBuilder()
