@@ -26,21 +26,6 @@ module.exports = {
             let reason = args.slice(1).join(' ') || 'Kein Grund angegeben';
             
             if (user) {
-                if (user.id === '705557092802625576') {
-                	let errorEmbed1 = new EmbedBuilder()
-                        .setColor(0x0099FF)
-                        .setTitle('Kick nicht ausgeführt')
-                        .setDescription('Der Bot Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gekickt werden!')
-                        .setTimestamp()
-                        return await message.channel.send({ embeds: [errorEmbed1] });
-            } else if (user.id === '684318650379010079') {
-                let errorEmbed2 = new EmbedBuilder()
-                	.setColor(0x0099FF)
-                	.setTitle('Kick nicht ausgeführt')
-                	.setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gekickt werden!')
-                	.setTimestamp()
-                	return await message.channel.send({ embeds: [errorEmbed2] });
-            }
                 if (user === message.author) {
                 let userEqualsAuthorerrorEmbed = new EmbedBuilder()
                 	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
