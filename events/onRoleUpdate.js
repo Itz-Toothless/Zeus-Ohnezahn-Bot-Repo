@@ -9,7 +9,7 @@ client.on('roleUpdate', async (oldRole, newRole) => {
         });
         if (!data) return;
         const channel = client.channels.cache.get(data.ChannelID);
-        if (!client.guilds.cache.get(role.guild.id).members.me.permissions.has(PermissionsBitField.Flags.ViewAuditLog)) {
+        if (!client.guilds.cache.get(oldRole.guild.id).members.me.permissions.has(PermissionsBitField.Flags.ViewAuditLog)) {
             if (oldRole.name !== newRole.name) {
                 const roleNameChange = new EmbedBuilder()
                     .setColor('Blurple')
