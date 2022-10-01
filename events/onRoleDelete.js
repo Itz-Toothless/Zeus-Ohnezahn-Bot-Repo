@@ -9,7 +9,7 @@ client.on('roleDelete', async (role) => {
         });
         if (!data) return;
         const channel = client.channels.cache.get(data.ChannelID);
-        if (!client.member.permissions.has(PermissionsBitField.Flags.ViewAuditLog)) {
+        if (!client.guilds.cache.get(role.guild.id).members.me.permissions.has(PermissionsBitField.Flags.ViewAuditLog)) {
             const roleDeletedWithoutMember = new EmbedBuilder()
                 .setColor('Blurple')
                 .setAuthor({ name: `${client.user.tag}`, iconURL: `${client.user.displayAvatarURL({ dynamic: true })}` })
