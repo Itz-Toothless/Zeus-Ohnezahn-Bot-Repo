@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'string',
-    description: 'Encodiert eine Zeichenkette aus Binär-Code (Bestehend aus Nullen und Einsen)\n\nBeispiel: ```as\nHallo Welt\n```',
+    description: 'Konvertiert eine Zeichenkette zu Binär-Code (Bestehend aus Nullen und Einsen)\n\nBeispiel: ```as\nHallo Welt\n```',
     aliases: ['str'],
     usage: 'z&o!string <Zeichen>',
     userPerms: [],
@@ -19,7 +19,7 @@ module.exports = {
                 .setColor('Blurple')
                 .setAuthor({ name: `${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setTitle('Konvertierung')
-                .setDescription(`> **Eingabe:**\n${input}\n\n> **Ausgabe:**\n\`\`\`as\n${outputStr}\n\`\`\``)
+                .setDescription(`> **Eingabe:**\n\`\`\`as\n${input}\n\`\`\`\n> **Ausgabe:**\n\`\`\`as\n${outputStr}\n\`\`\``)
                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setTimestamp()
             return message.channel.send({ embeds: [toBinaryEmbed], allowedMentions: { repliedUser: false } });
