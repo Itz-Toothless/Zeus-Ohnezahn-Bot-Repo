@@ -18,9 +18,13 @@ module.exports = {
         try {
             let input = interaction.options.getString('binary');
             if (!input) {
-                return interaction.reply({ content: 'Bitte gebe Binär-Code bestehend aus Nullen und Einsen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
-            } else if (isNaN(num = parseInt(input, 2))) {
-                return interaction.reply({ content: 'Bitte gebe nur Nullen und Einsen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
+                return interaction.reply({ content: 'Bitte geben Sie Binär-Code bestehend aus Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
+            }
+            
+            // Regex wird verwendet um festzustellen ob der Text nur Nullen, Einsen und Leerzeichen beeinhält oder nicht
+            // Was Regex ist und wie es funktioniert kann hier nachgelesen werden: https://www.webmasterpro.de/coding/einfuehrung-in-regular-expressions/
+            else if (/[^01\s]/.test(input)) {
+                return interaction.reply({ content: 'Bitte geben Sie nur Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
             }
             const res = input.split(' ').map(b => parseInt(b, 2)).map(num => String.fromCharCode(num)).join('');
             const binaryEmbed = new EmbedBuilder()
