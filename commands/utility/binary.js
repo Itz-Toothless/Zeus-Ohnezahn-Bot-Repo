@@ -9,12 +9,11 @@ module.exports = {
     botPerms: [],
     run: async (client, message, args) => {
         try {
-            var num;
             let input = args.join(' ');
             if (!input) {
-                return message.reply({ content: 'Bitte gebe Binär-Code bestehend aus Nullen und Einsen an!', allowedMentions: { repliedUser: false } });
-            } else if (isNaN(num = parseInt(input, 2))) {
-                return message.reply({ content: 'Bitte gebe nur Nullen und Einsen an!', allowedMentions: { repliedUser: false } });
+                return message.reply({ content: 'Bitte geben Sie Binär-Code bestehend aus Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false } });
+            } else if (/[^01\s]/.test(input)) {
+                return message.reply({ content: 'Bitte geben Sie nur Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false } });
             }
             const res = input.split(' ').map(b => parseInt(b, 2)).map(num => String.fromCharCode(num)).join('');
             const binaryEmbed = new EmbedBuilder()
