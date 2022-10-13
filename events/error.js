@@ -1,4 +1,4 @@
 const client = require('..');
-client.on("error", (err) =>{
+client.on("error", (err) => {
     console.log(`Error: ${err}`);
 });
