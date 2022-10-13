@@ -5,7 +5,6 @@ client.on('messageDeleteBulk', async (messages, channel) => {
     try {
         let guildId = messages.map(message => message.guildId);
         let theMessages = messages.map(message => message);
-        let channelid = messages.map(message => message.channelId);
         if (theMessages.partial) {
             return;
         };
