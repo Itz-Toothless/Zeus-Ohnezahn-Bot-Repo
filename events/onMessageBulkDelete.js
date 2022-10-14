@@ -17,8 +17,7 @@ client.on('messageDeleteBulk', async (messages, channel) => {
         messages.forEach((message) => {
             if (!message.author.bot) return messageArray.push(`\n${message.content}\n${message.author.tag} | ${message.createdAt.toLocaleString('de-DE')}`);
         });
-        messageArray = messageArray.join("\n");
-        messageArray = messageArray.split("\n").reverse().join("\n");
+        messageArray = messageArray.join("\n").split("\n").reverse().join("\n");
         let file = Buffer.from(messageArray);
         chan.send({ content: `${messages.size} Nachrichten wurden in ${channel} gelöscht`, files: [{ attachment: file, name: `${channel.name}.txt` }] });
     } catch (err) {
