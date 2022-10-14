@@ -42,9 +42,9 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
                     .setAuthor({ name: 'Nachricht editiert', iconURL: 'https://media.discordapp.net/attachments/506838906872922145/603643138854354944/messageupdate.png' })
                     .setColor('Random')
                     .setDescription(`**User:** ${newMessage.author}\n**Kanal:** ${newMessage.channel} \`[#${newMessage.channel.name}]\``)
-                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false }, 
-                               { name: 'Jetzt:', value: `${Edited}`, inline: false },
-                               { name: `${newMessage.attachments.size >= 1 ? 'Anhang' : 'Anhänge'} `, value: `${arr.join('\n')} ` })
+                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false },
+                        { name: 'Jetzt:', value: `${Edited}`, inline: false },
+                        { name: `${newMessage.attachments.size >= 1 ? 'Anhang' : 'Anhänge'} `, value: `${arr.join('\n')} ` })
                     .setFooter({ text: `Programmiert von ${client.users.cache.get('705557092802625576').tag} `, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })} ` })
                     .setTimestamp();
                 return await channel.send({ embeds: [logEmbedWithAttachments] });
@@ -53,8 +53,8 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
                     .setAuthor({ name: 'Nachricht editiert', iconURL: 'https://media.discordapp.net/attachments/506838906872922145/603643138854354944/messageupdate.png' })
                     .setColor('Random')
                     .setDescription(`**User:** ${newMessage.author}\n**Kanal:** ${newMessage.channel} \`[#${newMessage.channel.name}]\``)
-                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false }, 
-                               { name: 'Jetzt:', value: `${Edited}`, inline: false })
+                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false },
+                        { name: 'Jetzt:', value: `${Edited}`, inline: false })
                     .setFooter({ text: `Programmiert von ${client.users.cache.get('705557092802625576').tag} `, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })} ` })
                     .setTimestamp();
                 return await channel.send({ embeds: [logEmbedWithoutAttachments] });
