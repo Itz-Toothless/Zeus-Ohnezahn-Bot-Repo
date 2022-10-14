@@ -3,11 +3,12 @@ const deletedMessageLogs = require('../schema/DeletedMessageLogs');
 const Buffer = require('buffer').Buffer;
 client.on('messageDeleteBulk', async (messages, channel) => {
     try {
-        let guildId = messages.map(message => message.guildId);
-        let theMessages = messages.map(message => message);
-        if (theMessages.partial) {
+        if (messages.partial) {
             return;
         };
+        let guildId = messages.map(message => message.guildId);
+        let theMessages = messages.map(message => message);
+        
         const data = await deletedMessageLogs.findOne({
             GuildID: guildId,
         });
