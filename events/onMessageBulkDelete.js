@@ -16,7 +16,7 @@ client.on('messageDeleteBulk', async (messages, channel) => {
         let chan = client.channels.cache.get(data.ChannelID);
         let messageArray = [];
         messages.forEach((message) => {
-            if (!message.author.bot) return messageArray.push(`\n${message.content}\n${message.author.tag} | ${message.createdAt.toLocaleString('de-DE')}`);
+            if (!message.author.bot) return messageArray.push(`\n${message.content}\n${message.author.tag} (User ID: ${message.author.id} - Nachrichten-ID: ${message.id}) | ${message.createdAt.toLocaleString('de-DE')}`);
         });
         messageArray = messageArray.join("\n").split("\n").reverse().join("\n");
         let file = Buffer.from(messageArray);
