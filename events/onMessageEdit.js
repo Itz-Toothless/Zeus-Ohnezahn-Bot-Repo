@@ -4,6 +4,9 @@ const editedMessageLogs = require('../schema/EditedMessageLogs')
 
 client.on('messageUpdate', async (oldMessage, newMessage) => {
     try {
+        if (oldMessage.partial) {
+            return;
+        }
         const data = await editedMessageLogs.findOne({
             GuildID: newMessage.guild.id,
         });
@@ -23,30 +26,35 @@ client.on('messageUpdate', async (oldMessage, newMessage) => {
                     console.log(err);
                 }
             }
-            const Original = oldMessage.content ? oldMessage.content : 'None'
-            const Edited = newMessage.content ? newMessage.content : 'None'
-            if (Original.partial) {
-                return;
-            } else if (newMessage.attachments.size >= 1) {
+            let Original, Edited;
+            if (oldMessage.content.length > 1024) {
+                Original = oldMessage.content;
+            } else {
+                Original = oldMessage.content.substring(oldMessage.content.length - 1020) + '...';
+            }
+            if (newMessage.content.length < 1024) {
+                Edited = newMessage.content;
+            } else {
+                Edited = newMessage.content.substring(newMessage.content.length - 1020) + '...';
+            }
+            if (newMessage.attachments.size >= 1) {
                 const logEmbedWithAttachments = new EmbedBuilder()
-                    .setAuthor({ name: `${newMessage.author.tag}`, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })}` })
+                    .setAuthor({ name: 'Nachricht editiert', iconURL: 'https://media.discordapp.net/attachments/506838906872922145/603643138854354944/messageupdate.png' })
                     .setColor('Random')
-                    .setDescription(`Eine Nachricht wurde von ${newMessage.author} editiert!\nKanal: ${newMessage.channel}\n
-                **Original:** ${Original}
-
-                **Editiert zu:** ${Edited}`)
-                    .addFields({ name: `${newMessage.attachments.size >= 1 ? 'Anhang' : 'Anhänge'} `, value: `${arr.join('\n')} ` })
+                    .setDescription(`**User:** ${newMessage.author}\n**Kanal:** ${newMessage.channel} \`[#${newMessage.channel.name}]\``)
+                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false }, 
+                               { name: 'Jetzt:', value: `${Edited}`, inline: false },
+                               { name: `${newMessage.attachments.size >= 1 ? 'Anhang' : 'Anhänge'} `, value: `${arr.join('\n')} ` })
                     .setFooter({ text: `Programmiert von ${client.users.cache.get('705557092802625576').tag} `, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })} ` })
                     .setTimestamp();
                 return await channel.send({ embeds: [logEmbedWithAttachments] });
             } else {
                 const logEmbedWithoutAttachments = new EmbedBuilder()
-                    .setAuthor({ name: `${newMessage.author.tag}`, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })}` })
+                    .setAuthor({ name: 'Nachricht editiert', iconURL: 'https://media.discordapp.net/attachments/506838906872922145/603643138854354944/messageupdate.png' })
                     .setColor('Random')
-                    .setDescription(`Eine Nachricht wurde von ${newMessage.author} editiert!\nKanal: ${newMessage.channel}\n
-                    **Original:** ${Original}
-    
-                    **Editiert zu:** ${Edited}`)
+                    .setDescription(`**User:** ${newMessage.author}\n**Kanal:** ${newMessage.channel} \`[#${newMessage.channel.name}]\``)
+                    .addFields({ name: 'Bevor:', value: `${Original}`, inline: false }, 
+                               { name: 'Jetzt:', value: `${Edited}`, inline: false })
                     .setFooter({ text: `Programmiert von ${client.users.cache.get('705557092802625576').tag} `, iconURL: `${newMessage.author.displayAvatarURL({ dynamic: true })} ` })
                     .setTimestamp();
                 return await channel.send({ embeds: [logEmbedWithoutAttachments] });
