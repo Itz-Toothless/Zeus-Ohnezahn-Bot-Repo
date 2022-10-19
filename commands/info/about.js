@@ -1,3 +1,4 @@
+'use strict';
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const process = require("process");
 const { loadavg } = require('os');
