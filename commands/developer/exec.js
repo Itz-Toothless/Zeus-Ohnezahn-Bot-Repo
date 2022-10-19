@@ -1,3 +1,4 @@
+'use strict';
 const { EmbedBuilder } = require('discord.js');
 const { exec } = require('child_process');
 
