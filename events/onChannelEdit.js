@@ -3,6 +3,7 @@ const log = (arg) => console.log(arg);
 const channelModal = require('../schema/ChannelModal');
 const client = require('..');
 const { EmbedBuilder, AuditLogEvent, PermissionsBitField } = require('discord.js');
+const ms = require('ms');
 
 client.on('channelUpdate', async (oldChannel, newChannel) => {
     if (oldChannel.isDMBased()) return;
@@ -39,13 +40,21 @@ client.on('channelUpdate', async (oldChannel, newChannel) => {
                     .setTimestamp()
                 return await channelSend.send({ embeds: [channelEditWithoutAuditPerms] });
             } else if (oldChannel.rateLimitPerUser !== newChannel.rateLimitPerUser) {
-                channelEditWithoutAuditPerms = new EmbedBuilder()
+                let oldSlowmode = ms(oldChannel.rateLimitPerUser * 1000, { long: true }).replace('seconds', 'Sekunden').replace('minutes', 'Minuten').replace('hours', 'Stunden');
+                if (ms(oldChannel.rateLimitPerUser * 1000, { long: true }) == '0 ms') {
+                    oldSlowmode = 'Kein langsamer Modus wurde davor gesetzt!'
+                }
+                let newSlowmode = ms(newChannel.rateLimitPerUser * 1000, { long: true }).replace('seconds', 'Sekunden').replace('minutes', 'Minuten').replace('hours', 'Stunden');
+                if (ms(newChannel.rateLimitPerUser * 1000, { long: true }) == '0 ms') {
+                    newSlowmode = 'Kein langsamer Modus wurde gesetzt!'
+                }
+                channelEditWithAuditPerms = new EmbedBuilder()
                     .setColor('Blurple')
                     .setTitle('Ein Kanal wurde verändert')
-                    .addFields({ name: 'Kanal-ID:', value: `${newChannel.id}` }, { name: 'Alte Wartezeit:', value: `${oldChannel.rateLimitPerUser ? oldChannel.rateLimitPerUser : 'Es wurde davor keine Wartezeit gesetzt'}`, inline: true },
-                        { name: 'Neuer Name', value: `${newChannel.rateLimitPerUser ? newChannel.rateLimitPerUser : 'Es wurde keine Wartezeit gesetzt'}`, inline: true })
+                    .addFields({ name: 'Kanal-Name:', value: `${oldChannel.name}`, inline: true }, { name: 'Kanal-ID:', value: `${newChannel.id}` }, { name: 'Alter langsamer Modus:', value: `${oldSlowmode}`, inline: true },
+                        { name: 'Neuer langsamer Modus:', value: `${newSlowmode}`, inline: true })
                     .setTimestamp()
-                return await channelSend.send({ embeds: [channelEditWithoutAuditPerms] });
+                return await channelSend.send({ embeds: [channelEditWithAuditPerms] });
             } else {
                 return;
             }
@@ -79,11 +88,19 @@ client.on('channelUpdate', async (oldChannel, newChannel) => {
                     .setTimestamp()
                 return await channelSend.send({ embeds: [channelEditWithAuditPerms] });
             } else if (oldChannel.rateLimitPerUser !== newChannel.rateLimitPerUser) {
+                let oldSlowmode = ms(oldChannel.rateLimitPerUser * 1000, { long: true }).replace('seconds', 'Sekunden').replace('minutes', 'Minuten').replace('hours', 'Stunden');
+                if (ms(oldChannel.rateLimitPerUser * 1000, { long: true }) == '0 ms') {
+                    oldSlowmode = 'Kein langsamer Modus wurde davor gesetzt!'
+                }
+                let newSlowmode = ms(newChannel.rateLimitPerUser * 1000, { long: true }).replace('seconds', 'Sekunden').replace('minutes', 'Minuten').replace('hours', 'Stunden');
+                if (ms(newChannel.rateLimitPerUser * 1000, { long: true }) == '0 ms') {
+                    newSlowmode = 'Kein langsamer Modus wurde gesetzt!'
+                }
                 channelEditWithAuditPerms = new EmbedBuilder()
                     .setColor('Blurple')
                     .setTitle('Ein Kanal wurde verändert')
-                    .addFields({ name: 'Kanal-Name:', value: `${oldChannel.name}`, inline: true }, { name: 'Kanal-ID:', value: `${newChannel.id}` }, { name: 'Ausgeführt von:', value: `${member.user.tag}` }, { name: 'Altes Thema:', value: `${oldChannel.rateLimitPerUser ? oldChannel.rateLimitPerUser : 'Es wurde davor kein langsamer Modus eingestellt'}`, inline: true },
-                        { name: 'Neuer Name:', value: `${newChannel.rateLimitPerUser ? newChannel.rateLimitPerUser : 'Es wurde kein langsamer Modus eingestellt'}`, inline: true })
+                    .addFields({ name: 'Kanal-Name:', value: `${oldChannel.name}`, inline: true }, { name: 'Kanal-ID:', value: `${newChannel.id}` }, { name: 'Ausgeführt von:', value: `${member.user.tag}` }, { name: 'Alter langsamer Modus:', value: `${oldSlowmode}`, inline: true },
+                        { name: 'Neuer langsamer Modus:', value: `${newSlowmode}`, inline: true })
                     .setTimestamp()
                 return await channelSend.send({ embeds: [channelEditWithAuditPerms] });
             } else {
