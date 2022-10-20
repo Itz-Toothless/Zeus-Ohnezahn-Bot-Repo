@@ -14,7 +14,6 @@ client.on('channelDelete', async (channel) => {
             const channelDeletionWithoutAuditPerms = new EmbedBuilder()
                 .setColor('Blurple')
                 .setTitle('Ein Kanal wurde gelöscht')
-                .setDescription(`Ein Kanal wurde gelöscht`)
                 .addFields({ name: 'Name:', value: `${channel.name}` },
                     { name: 'ID:', value: `${channel.id}` },
                     { name: 'Erstellt am:', value: '<t:' + Math.round(parseInt(channel.createdTimestamp) / 1000) + ':F>' })
