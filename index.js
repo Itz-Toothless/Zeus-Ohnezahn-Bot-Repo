@@ -1,16 +1,24 @@
+'use strict';
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const { readdirSync } = require('fs');
+const process = require('node:process');
 const client = new Client({
     intents: [
-        GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent
+        GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent
     ],
     partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction]
 });
 
-client.on("debug", console.log).on("warn", console.log)
-
 const config = require('./config.json');
 require('dotenv').config()
+
+process.on('unhandledRejection', async(error) => {
+    await console.log(`Would have crashed on unhandled promise rejection: ${error.stack}`);
+});
+
+process.on('uncaughtException', async(error) => {
+    await console.log(`Would have crashed on unhandled exception: ${error.stack}`);
+});
 
 client.commands = new Collection()
 client.aliases = new Collection()
