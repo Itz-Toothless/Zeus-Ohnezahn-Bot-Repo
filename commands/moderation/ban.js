@@ -15,21 +15,6 @@ module.exports = {
                 let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
                 let reason = args.slice(1).join(' ') || 'Kein Grund angegeben';
                 if (user) {
-                    if (user.id === '705557092802625576') {
-                        let errorEmbed1 = new EmbedBuilder()
-                            .setColor(0xFF0000)
-                            .setTitle('Bann nicht ausgeführt')
-                            .setDescription('Der Bot-Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
-                            .setTimestamp()
-                        return await message.channel.send({ embeds: [errorEmbed1] });
-                    } else if (user.id === '684318650379010079') {
-                        let errorEmbed2 = new EmbedBuilder()
-                            .setColor(0xFF0000)
-                            .setTitle('Bann nicht ausgeführt')
-                            .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
-                            .setTimestamp()
-                        return await message.channel.send({ embeds: [errorEmbed2] });
-                    }
                     if (message.member.roles.highest.comparePositionTo(user.roles.highest.id) <= 0) {
                         await message.reply({ content: "Du kannst niemanden bannen, der eine höhere Rolle hat!", allowedMentions: { repliedUser: false } })
                         return
