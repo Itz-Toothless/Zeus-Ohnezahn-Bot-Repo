@@ -11,8 +11,3 @@ Offizieller Source-Code des Discord-Bots Zeus & Ohnezahn#5002
 🔧 Nachricht-Editierungen
 📛 Löschungen
 ```
-
-▪ In Arbeit:
-```swift
-🎟️ Ticket-System
-```
