@@ -8,7 +8,7 @@ module.exports = {
     botPerms: [],
     run: async (client, message, args) => {
         if (!message.author.id === '705557092802625576') {
-            return message.reply({ content: 'Dieses Kommando ist nur für den Entwickler ' + client.users.cache.get('705557092802625576').tag + ' bestimmt!', allowedMentions: { repliedUser: false  })
+            return message.reply({ content: 'Dieses Kommando ist nur für den Entwickler ' + client.users.cache.get('705557092802625576').tag + ' bestimmt!', allowedMentions: { repliedUser: false  }})
         }
         const commandName = args[0].toLowerCase();
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
