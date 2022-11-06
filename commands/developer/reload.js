@@ -8,7 +8,7 @@ module.exports = {
     botPerms: [],
     run: async (client, message, args) => {
         if (!message.author.id === '705557092802625576') {
-            return message.channel.send({ content: 'Dieses Kommando ist nur für den Entwickler ' + client.users.cache.get('705557092802625576').tag + ' bestimmt!' })
+            return message.reply({ content: 'Dieses Kommando ist nur für den Entwickler ' + client.users.cache.get('705557092802625576').tag + ' bestimmt!', allowedMentions: { repliedUser: false  })
         }
         const commandName = args[0].toLowerCase();
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -25,10 +25,10 @@ module.exports = {
         try {
             const newCommand = require(`../${folderName}/${command.name}.js`);
             client.commands.set(newCommand.name, newCommand);
-            message.channel.send(`Command \`${newCommand.name}\` was reloaded!`);
+            return message.channel.send(`Das Kommando \`${newCommand.name}\` wurde neu geladen!`);
         } catch (error) {
             console.error(error);
-            message.channel.send(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+            return message.channel.send(`Ein Fehler ist beim Versuch, \`${command.name}\` neu zu laden, aufgetreten:\n\`${error.message}\``);
         }
     },
 };
