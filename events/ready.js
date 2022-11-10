@@ -1,26 +1,30 @@
+'use strict'
 const { ActivityType } = require('discord.js');
 const client = require('..');
-
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const chalk = require('chalk');
 const activities = [
-    { name: `Discord.js v14.5.0`, type: ActivityType.Competing }
+    { name: `Discord.js v${require('discord.js').version}`, type: ActivityType.Competing }
 ];
 const status = [
-    'online',
-    'dnd',
-    'idle'
+    'online'
 ];
-setInterval(async () => {
-    let act = activities[Math.floor(Math.random() * activities.length)];
-    let sta = status[Math.floor(Math.random() * status.length)];
-    client.user.setActivity(act);
-    client.user.setStatus(sta);
-}, 60e3);
-client.on("ready", () => {
 
+client.on("ready", () => {
+    client.user.setActivity(activities[0]);
+	client.user.setStatus(status[0]);
+    try {
+        function users_fetch() {
+            client.guilds.cache.forEach(async (guild) => {
+                await guild.members.fetch();
+            });
+        }
+        setInterval(users_fetch, 6e5);
+    } catch (err) {
+        console.log(err);
+    }
     console.log(chalk.green(`Eingeloggt als ${client.user.tag}!`))
 
     if (!process.env.DBURL) return;
