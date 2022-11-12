@@ -1,4 +1,4 @@
-
+const chalk = require('chalk');
 const AsciiTable = require('ascii-table');
 const table = new AsciiTable().setHeading('Slash Commands', 'Stats').setBorder('|', '=', "0", "0")
 require('dotenv').config()
