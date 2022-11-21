@@ -129,21 +129,6 @@ module.exports = {
                 else {
                     try {
                         await client.users.fetch(args[0]).then(async (fetchedUser) => {
-                            if (fetchedUser.id === '705557092802625576') {
-                                let errorEmbed1 = new EmbedBuilder()
-                                    .setColor(0xFF0000)
-                                    .setTitle('Bann nicht ausgeführt')
-                                    .setDescription('Der Bot Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
-                                    .setTimestamp()
-                                return await message.channel.send({ embeds: [errorEmbed1] });
-                            } else if (fetchedUser.id === '684318650379010079') {
-                                let errorEmbed2 = new EmbedBuilder()
-                                    .setColor(0xFF0000)
-                                    .setTitle('Bann nicht ausgeführt')
-                                    .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
-                                    .setTimestamp()
-                                return await message.channel.send({ embeds: [errorEmbed2] });
-                            }
                             if (bannedUsers.has(fetchedUser.id)) {
                                 let banned = new EmbedBuilder()
                                     .setColor(0xff2200)
