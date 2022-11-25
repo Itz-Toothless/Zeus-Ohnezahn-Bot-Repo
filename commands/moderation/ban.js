@@ -80,7 +80,7 @@ module.exports = {
                                 switch (button.customId) {
                                     case "rel":
                                         col.stop(true);
-                                        await message.guild.members.ban(user.id, { reason: reason, deleteMessageSeconds: 60 * 60 * 24 * 7 });
+                                        await message.guild.bans.create(user.id, { reason: reason, deleteMessageSeconds: 60 * 60 * 24 * 7 });
                                         let embed2 = new EmbedBuilder()
                                             .setColor(0x00ff00)
                                             .setTitle('🔨 Bann ausgeführt!')
@@ -181,7 +181,7 @@ module.exports = {
                                     switch (button.customId) {
                                         case "rel":
                                             col.stop(true);
-                                            await message.guild.members.ban(fetchedUser, { reason: reason });
+                                            await message.guild.bans.create(fetchedUser, { reason: reason });
                                             let embed2 = new EmbedBuilder()
                                                 .setColor('Green')
                                                 .setTitle('🔨 Bann ausgeführt!')
