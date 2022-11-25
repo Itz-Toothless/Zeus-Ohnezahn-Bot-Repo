@@ -59,7 +59,7 @@ module.exports = {
                         switch (button.customId) {
                             case "rel":
                                 col.stop(true);
-                                await message.guild.members.unban(user.id, reason);
+                                await message.guild.bans.remove(user.id, reason);
                                 let embed2 = new EmbedBuilder()
                                     .setColor(0x00ff00)
                                     .setTitle('🔨 Entbannung ausgeführt!')
