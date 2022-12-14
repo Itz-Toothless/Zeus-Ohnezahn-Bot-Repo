@@ -12,7 +12,7 @@ module.exports = {
         try {
             if (!args[0]) {
                 let argumentErrorEmbed = new EmbedBuilder()
-                	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
+                	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ forceStatic: true })}` })
                 	.setColor(0xFF0000)
                 	.setTitle('Fehler!')
                 	.setDescription('Keine Argumente angegeben!')
@@ -28,7 +28,7 @@ module.exports = {
             if (user) {
                 if (user === message.author) {
                 let userEqualsAuthorerrorEmbed = new EmbedBuilder()
-                	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ dynamic: true })}` })
+                	.setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.displayAvatarURL({ forceStatic: true })}` })
                 	.setColor(0xFF0000)
                 	.setTitle('Fehler!')
                 	.setDescription('Sie können sich selbst nicht bannen!')
