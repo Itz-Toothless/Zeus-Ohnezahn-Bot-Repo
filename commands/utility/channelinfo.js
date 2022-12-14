@@ -64,7 +64,7 @@ module.exports = {
                         { name: 'Position:', value: `${channel.position || "0"}`, inline: true },
                         { name: 'NSFW?:', value: `${channel.nsfw ? "<a:yes:1009852362845868092>" : "<a:no:1009852394898718784>"}`, inline: true },
                         { name: 'Erstellt am:', value: `**<t:${Math.round(parseInt(channel.createdTimestamp) / 1000)}:F>**`, inline: true })
-                    .setFooter({ text: `Made with ❤️ by Itz_Toothless#8135`, iconURL: `${client.user.displayAvatarURL({ dynamic: true })}` })
+                    .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: `${client.user.displayAvatarURL({ dynamic: true })}` })
                     .setTimestamp();
                 return await message.reply({ embeds: [channelEmbed] });
             });
