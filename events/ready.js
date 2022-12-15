@@ -14,7 +14,7 @@ const status = [
 
 client.on("ready", () => {
     client.user.setActivity(activities[0]);
-	client.user.setStatus(status[0]);
+    client.user.setStatus(status[0]);
     try{
         function users_fetch() {
             client.guilds.cache.forEach(async (guild) => {
