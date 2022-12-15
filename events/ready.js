@@ -15,16 +15,16 @@ const status = [
 client.on("ready", () => {
     client.user.setActivity(activities[0]);
 	client.user.setStatus(status[0]);
-    try {
+    try{
         function users_fetch() {
             client.guilds.cache.forEach(async (guild) => {
                 await guild.members.fetch();
             });
         }
-        setInterval(users_fetch, 6e5);
-    } catch (err) {
+        setInterval(users_fetch, 600000);
+    } catch(err) {
         console.log(err);
-    }
+    };
     console.log(chalk.green(`Eingeloggt als ${client.user.tag}!`))
 
     if (!process.env.DBURL) return;
