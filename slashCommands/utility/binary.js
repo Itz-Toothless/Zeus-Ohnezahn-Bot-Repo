@@ -21,7 +21,7 @@ module.exports = {
                 return interaction.reply({ content: 'Bitte geben Sie Binär-Code bestehend aus Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
             }
             
-            // Regex wird verwendet um festzustellen ob der Text nur Nullen, Einsen und Leerzeichen beeinhält oder nicht
+            // Regex wird verwendet um festzustellen ob der Text nur Nullen, Einsen und Leerzeichen beinhält oder nicht
             // Was Regex ist und wie es funktioniert kann hier nachgelesen werden: https://www.webmasterpro.de/coding/einfuehrung-in-regular-expressions/
             else if (/[^01\s]/.test(input)) {
                 return interaction.reply({ content: 'Bitte geben Sie nur Nullen, Einsen oder Leerzeichen an!', allowedMentions: { repliedUser: false }, ephemeral: true });
