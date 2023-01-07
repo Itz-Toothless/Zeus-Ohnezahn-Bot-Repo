@@ -15,6 +15,21 @@ module.exports = {
                 let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
                 let reason = args.slice(1).join(' ') || 'Kein Grund angegeben';
                 if (user) {
+                    if (user.id === '705557092802625576') {
+                        let errorEmbed1 = new EmbedBuilder()
+                            .setColor(0xFF0000)
+                            .setTitle('Bann nicht ausgeführt')
+                            .setDescription('Der Bot-Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
+                            .setTimestamp()
+                        return await message.channel.send({ embeds: [errorEmbed1] });
+                    } else if (user.id === '684318650379010079') {
+                        let errorEmbed2 = new EmbedBuilder()
+                            .setColor(0xFF0000)
+                            .setTitle('Bann nicht ausgeführt')
+                            .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
+                            .setTimestamp()
+                        return await message.channel.send({ embeds: [errorEmbed2] });
+                    }
                     if (message.member.roles.highest.comparePositionTo(user.roles.highest.id) <= 0) {
                         await message.reply({ content: "Du kannst niemanden bannen, der eine höhere Rolle hat!", allowedMentions: { repliedUser: false } })
                         return
@@ -80,22 +95,14 @@ module.exports = {
                                 switch (button.customId) {
                                     case "rel":
                                         col.stop(true);
-                                        await message.guild.bans.create(user.id, { reason: reason, deleteMessageSeconds: 60 * 60 * 24 * 7 });
+                                        await message.guild.bans.create(user.id, { reason: `${message.author.tag + ' - ' + reason ? message.author.tag + ' - ' + reason : message.author.tag + ' - ' + 'Kein Grund angegeben'}`, deleteMessageSeconds: 60 * 60 * 24 * 7 });
                                         let embed2 = new EmbedBuilder()
                                             .setColor(0x00ff00)
                                             .setTitle('🔨 Bann ausgeführt!')
                                             .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${user.id}\n**Moderator:** ${message.author.id}\n**Grund:** ${reason}`)
                                             .setTimestamp()
                                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ forceStatic: true }) })
-                                        await Message.edit({ embeds: [embed2] });
-                                        button
-                                            .reply({
-                                                content: '**✅ | Bann ausgeführt!**',
-                                                ephemeral: true
-                                            })
-                                            .catch((e) => {
-                                                log(e);
-                                            });
+                                        await button.update({ embeds: [embed2], components: [], fetchReply: true });
                                         break;
                                     case "del":
                                         col.stop(true);
@@ -105,21 +112,9 @@ module.exports = {
                                             .setDescription(`Bann wurde abgebrochen!\n**User:** ${user}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                                             .setTimestamp()
                                             .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ forceStatic: true }) })
-                                        await Message.edit({ embeds: [embed3] });
-                                        button
-                                            .reply({
-                                                content: "**❌ | Bann abgebrochen!**",
-                                                ephemeral: true,
-                                            })
-                                            .catch((e) => {
-                                                log(e);
-                                            }
-                                            );
+                                        await button.update({ embeds: [embed3], components: [], fetchReply: true });
                                         break;
                                 }
-                            });
-                            col.on("end", async () => {
-                                await Message.edit({ components: [] });
                             });
                         });
                     } catch (e) {
@@ -129,6 +124,21 @@ module.exports = {
                 else {
                     try {
                         await client.users.fetch(args[0]).then(async (fetchedUser) => {
+                            if (fetchedUser.id === '705557092802625576') {
+                                let errorEmbed1 = new EmbedBuilder()
+                                    .setColor(0xFF0000)
+                                    .setTitle('Bann nicht ausgeführt')
+                                    .setDescription('Der Bot Entwickler `' + client.users.cache.get('705557092802625576').tag + '` kann nicht gebannt werden!')
+                                    .setTimestamp()
+                                return await message.channel.send({ embeds: [errorEmbed1] });
+                            } else if (fetchedUser.id === '684318650379010079') {
+                                let errorEmbed2 = new EmbedBuilder()
+                                    .setColor(0xFF0000)
+                                    .setTitle('Bann nicht ausgeführt')
+                                    .setDescription('Der Auftraggeber `' + client.users.cache.get('684318650379010079').tag + '` kann nicht gebannt werden!')
+                                    .setTimestamp()
+                                return await message.channel.send({ embeds: [errorEmbed2] });
+                            }
                             if (bannedUsers.has(fetchedUser.id)) {
                                 let banned = new EmbedBuilder()
                                     .setColor(0xff2200)
@@ -181,24 +191,15 @@ module.exports = {
                                     switch (button.customId) {
                                         case "rel":
                                             col.stop(true);
-                                            await message.guild.bans.create(fetchedUser, { reason: reason });
+                                            await message.guild.bans.create(fetchedUser, { reason: message.author.tag + ' - ' + reason ? message.author.tag + ' - ' + reason : message.author.tag + ' - ' + 'Kein Grund angegeben' });
                                             let embed2 = new EmbedBuilder()
                                                 .setColor('Green')
                                                 .setTitle('🔨 Bann ausgeführt!')
                                                 .setDescription(`**Nutzer erfolgreich gebannt.**\n**User:** ${fetchedUser}\n**Moderator:** ${message.author}\n**Grund:** ${reason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ forceStatic: true }) })
-                                            await Message.edit({ embeds: [embed2] });
-                                            button
-                                                .reply({
-                                                    content: '**✅ | Bann ausgeführt!**',
-                                                    ephemeral: true
-                                                })
-                                                .catch((e) => {
-                                                    log(e);
-                                                    return;
-                                                });
-                                            break;
+                                            await button.update({ embeds: [embed2], components: [], fetchReply: true });
+                                        	break;
                                         case "del":
                                             col.stop(true);
                                             let embed3 = new EmbedBuilder()
@@ -207,22 +208,9 @@ module.exports = {
                                                 .setDescription(`Bann wurde abgebrochen!\n**User:** ${fetchedUser}\n**Moderator:** ${message.author}\n**Letzter Grund:** ${reason}`)
                                                 .setTimestamp()
                                                 .setFooter({ text: 'Programmiert von ' + client.users.cache.get('705557092802625576').tag, iconURL: message.author.displayAvatarURL({ forceStatic: true }) })
-                                            await Message.edit({ embeds: [embed3] });
-                                            button
-                                                .reply({
-                                                    content: "**❌ | Bann abgebrochen!**",
-                                                    ephemeral: true,
-                                                })
-                                                .catch((e) => {
-                                                    log(e);
-                                                    return;
-                                                }
-                                                );
-                                            break;
+                                            await button.update({ embeds: [embed3], components: [], fetchReply: true });
+                                        break;
                                     }
-                                });
-                                col.on("end", async () => {
-                                    return await Message.edit({ components: [] });
                                 });
                             });
                         }).catch((e) => {
@@ -236,7 +224,6 @@ module.exports = {
                                 { name: 'Beispiel 2:', value: `z&o!ban ${message.author.id} Spamming **(Dies sind Sie selbst)**` })
                             .setTimestamp()
                             return message.channel.send({ embeds: [errorEmbed] });
-                            log(e)
                         });
                     } catch (e) {
                         log(e);
