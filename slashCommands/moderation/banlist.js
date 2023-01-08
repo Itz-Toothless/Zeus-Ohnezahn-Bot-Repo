@@ -19,7 +19,7 @@ module.exports = {
         let file = Buffer.from(banFileArray);
         return interaction.reply({ content: 'Hier ist die aktuelle Ban-Liste!\nErstellt am: <t:' + Math.round(parseInt(interaction.createdTimestamp) / 1000) + ':f>', files: [{ attachment: file, name: `Ban-Liste.txt` }], ephemeral: true });
               }
-        // The response is ephemeral for the sake of preventing channel flodding
+            // The response is ephemeral for the sake of preventing channel flodding
             getBanList(interaction.guild);
         } catch(err) {
             console.log(err);
